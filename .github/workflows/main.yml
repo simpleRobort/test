@@ -3,7 +3,7 @@ name: Pull Request Check
 on:
   push:
     branches:
-      - main
+      - master
 defaults:
   run:
     shell: bash
