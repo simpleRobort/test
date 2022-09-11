@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="HunterPie.UI.Controls.TextBox.SearchTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:HunterPie.UI.Controls.TextBox"
+             xmlns:buttons="clr-namespace:HunterPie.UI.Controls.Buttons"
+             xmlns:converters="clr-namespace:HunterPie.UI.Architecture.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" 
+             d:DesignWidth="200">
+    <UserControl.Resources>
+        <converters:RelativeSizeRectConverter x:Key="RelativeSizeRectConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <TextBox Background="{StaticResource GRAY_600}"
+                 VerticalContentAlignment="Center"
+                 HorizontalAlignment="Stretch"
+                 Padding="10,0,30,0"
+                 TextAlignment="Left"
+                 FontFamily="{StaticResource HUNTERPIE_DEFAULT_FONT}"
+                 d:Text="Search"
+                 Text="{Binding SearchText.Value, UpdateSourceTrigger=PropertyChanged}"
+                 BorderThickness="0"
+                 TextChanged="OnTextChanged"
+                 KeyUp="OnKeyUp"
+                 LostFocus="OnLostFocus"
+                 GotFocus="OnGotFocus">
+            <TextBox.Clip>
+                <RectangleGeometry RadiusX="1"
+                                   RadiusY="1">
+                    <RectangleGeometry.Rect>
+                        <MultiBinding Converter="{StaticResource RelativeSizeRectConverter}">
+                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=TextBox}"/>
+                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource AncestorType=TextBox}"/>
+                        </MultiBinding>
+                    </RectangleGeometry.Rect>
+                </RectangleGeometry>
+            </TextBox.Clip>
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Foreground" Value="{StaticResource WHITE_100}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsFocused" Value="False">
+                            <Trigger.Setters>
+                                <Setter Property="Foreground" Value="{StaticResource WHITE_500}"/>
+                            </Trigger.Setters>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <buttons:Button Width="30"
+                        HorizontalAlignment="Right"
+                        Background="{StaticResource HUNTERPIE_BACKGROUND_DARK_OPACITY}"
+                        OnClick="OnSearchClick">
+            <Image Source="{StaticResource ICON_SEARCH}"/>
+        </buttons:Button>
+        <Rectangle Stroke="{StaticResource HUNTERPIE_ACCENT_COLOR}"
+                   RadiusX="1"
+                   RadiusY="1"/>
+    </Grid>
+</UserControl>
